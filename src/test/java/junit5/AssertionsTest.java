@@ -2,9 +2,7 @@ package junit5;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
 public class AssertionsTest {
@@ -25,5 +23,10 @@ public class AssertionsTest {
                 () -> {},
                 () -> assertEquals("", "")
         );
+    }
+
+    @Test
+    public void testThrowing() {
+        assertThrows(ArithmeticException.class, () -> { int a = 1/0; }, () -> "It has to throw an exception, it is abomination");
     }
 }
