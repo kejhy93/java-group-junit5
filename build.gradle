@@ -65,9 +65,9 @@ task consoleLauncherTest(type: JavaExec) {
 test {
     useJUnitPlatform()
 
-    // Uncomment for ConsoleLauncher
-    // dependsOn consoleLauncherTest
-    
+    // Uncomment to allow ConsoleLauncher
+    dependsOn consoleLauncherTest
+
     testLogging {
         events "passed", "skipped", "failed"
     }
