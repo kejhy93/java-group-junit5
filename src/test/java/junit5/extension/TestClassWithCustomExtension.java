@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 @TestClassTimeLogging
 @ExtendWith({ExceptionHandlingExtension.class, TimeLoggingTestMethod.class})
+@ExtendWith({EnableConditionOddSumOfMinuteAndSecond.class})
 public class TestClassWithCustomExtension {
 
     @RegisterExtension
@@ -43,6 +44,11 @@ public class TestClassWithCustomExtension {
 
     @Test
     void thirdTestThrowingException() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("Third test, name of folder " + tempFolder.getRoot().toString());
         System.out.println("Third test, name of file " + tempFile.getFile().toString());
 
