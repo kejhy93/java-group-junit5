@@ -1,6 +1,9 @@
 package junit5.extension;
 
+import junit5.extension.parameter.ParameterResolverExtension;
+import junit5.extension.parameter.RandomParam;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,5 +47,12 @@ public class TestClassWithCustomExtension {
         System.out.println("Third test, name of file " + tempFile.getFile().toString());
 
         throw new NullPointerException();
+    }
+
+    @Test
+    @ExtendWith(ParameterResolverExtension.class)
+    public void testParamTest(@RandomParam String value) {
+        Assertions.assertTrue(value.startsWith("Result"));
+        Assertions.assertTrue(value.endsWith("."));
     }
 }
