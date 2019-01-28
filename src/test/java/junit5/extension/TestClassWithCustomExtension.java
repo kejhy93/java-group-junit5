@@ -1,10 +1,13 @@
 package junit5.extension;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-@ExtendWith(ExceptionHandlingExtension.class)
+@TestClassTimeLogging
+@ExtendWith({ExceptionHandlingExtension.class, TimeLoggingTestMethod.class})
 public class TestClassWithCustomExtension {
 
     @RegisterExtension
@@ -12,6 +15,16 @@ public class TestClassWithCustomExtension {
 
     @RegisterExtension
     static TempFile tempFile = new TempFile(tempFolder);
+
+    @BeforeAll
+    static void beforeAllTests() {
+        System.out.println("[BeforeAll] TestClassWithCustomException");
+    }
+
+    @AfterAll
+    static void afterAllTests() {
+        System.out.println("[AfterAll] TestClassWithCustomException");
+    }
 
     @Test
     void firstTest() {
