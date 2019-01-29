@@ -37,6 +37,7 @@ dependencies {
     testCompile("org.junit.platform:junit-platform-runner:${junit5PlatformVersion}")
     testCompile("org.junit.platform:junit-platform-console-standalone:${junit5PlatformVersion}")
     testCompile("org.junit.platform:junit-platform-launcher:${junit5PlatformVersion}")
+    testCompile("org.junit.platform:junit-platform-commons:${junit5PlatformVersion}")
 
     testRuntime("org.junit.jupiter:junit-jupiter-engine:${junit5Version}")
     testRuntime("org.junit.vintage:junit-vintage-engine:${junit5Version}")
