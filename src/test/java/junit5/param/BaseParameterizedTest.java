@@ -5,10 +5,13 @@ import junit5.Person;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.aggregator.AggregateWith;
+import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
 import org.junit.jupiter.params.converter.ConvertWith;
 import org.junit.jupiter.params.provider.*;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -102,5 +105,38 @@ public class BaseParameterizedTest {
         assertEquals(7, person.getLastName().length());
         assertTrue ( 0 <= person.getAge() && person.getAge() <= 100);
     }
-    
+
+    @ParameterizedTest
+    @CsvSource({
+            "ABCDE, FGHIJKL, 10", "12345, 6789012, 5"
+    })
+    void testWithArgumentsAccessor(ArgumentsAccessor arguments) {
+        Person person = new Person(arguments.getString(0),
+                arguments.getString(1),
+                arguments.getInteger(2));
+
+        assertEquals(5, person.getFirstName().length());
+        assertEquals(7, person.getLastName().length());
+        assertTrue ( 0 <= person.getAge() && person.getAge() <= 100);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "ABCDE, FGHIJKL, 10", "12345, 6789012, 5"
+    })
+    void testWithArgumentsAccessor(@AggregateWith(PersonAggregator.class) Person person) {
+        assertEquals(5, person.getFirstName().length());
+        assertEquals(7, person.getLastName().length());
+        assertTrue ( 0 <= person.getAge() && person.getAge() <= 100);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "ABCDE, FGHIJKL, 10", "12345, 6789012, 5"
+    })
+    void testWithArgumentsAccessorAnnotation(@CsvToPerson Person person) {
+        assertEquals(5, person.getFirstName().length());
+        assertEquals(7, person.getLastName().length());
+        assertTrue ( 0 <= person.getAge() && person.getAge() <= 100);
+    }
 }
