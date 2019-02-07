@@ -1,6 +1,7 @@
 package junit5.param;
 
 
+import junit5.Person;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("Basic parameterized test")
@@ -67,5 +69,13 @@ public class BaseParameterizedTest {
     void testFileNamesCsv(String firstName, String lastName) {
         assertTrue(!firstName.isBlank());
         assertTrue(!lastName.isBlank());
+    }
+
+    @ParameterizedTest
+    @ArgumentsSource(CustomArgumentSource.class)
+    void testCustomArgumentSource( Person person) {
+        assertEquals(5, person.getFirstName().length());
+        assertEquals(7, person.getLastName().length());
+        assertTrue( 0 <= person.getAge() && person.getAge() <= 100);
     }
 }
