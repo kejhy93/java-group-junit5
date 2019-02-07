@@ -5,6 +5,7 @@ import junit5.Person;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.converter.ConvertWith;
 import org.junit.jupiter.params.provider.*;
 
 import java.math.BigInteger;
@@ -78,4 +79,28 @@ public class BaseParameterizedTest {
         assertEquals(7, person.getLastName().length());
         assertTrue( 0 <= person.getAge() && person.getAge() <= 100);
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "true" })
+    void testImplicitArgumentConversion( boolean param ) {
+        assertTrue(param);
+    }
+
+
+    @ParameterizedTest
+    @ValueSource(strings = { "ABCDE FGHIJKL 10", "12345 6789012 5" })
+    void testAnotherImplicitArgumentConversion( Person person ) {
+        assertEquals(5, person.getFirstName().length());
+        assertEquals(7, person.getLastName().length());
+        assertTrue ( 0 <= person.getAge() && person.getAge() <= 100);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "ABCDE FGHIJKL 10", "12345 6789012 5" })
+    void testExplicitFromStringArgumentConversion( @ConvertWith(ToPersonArgumentConvertor.class) Person person ) {
+        assertEquals(5, person.getFirstName().length());
+        assertEquals(7, person.getLastName().length());
+        assertTrue ( 0 <= person.getAge() && person.getAge() <= 100);
+    }
+    
 }

@@ -2,11 +2,25 @@ package junit5;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
+import org.junit.platform.commons.util.Preconditions;
+
+import java.util.Objects;
 
 public class Person {
     private String firstName;
     private String lastName;
     private int age;
+
+    public Person (String inputToParse) {
+        String[] parsedInput = inputToParse.split(" ");
+
+        Objects.requireNonNull(parsedInput);
+        Preconditions.condition(3 == parsedInput.length, "It has to be 3 params :(");
+
+        this.firstName = parsedInput[0];
+        this.lastName = parsedInput[1];
+        this.age = Integer.parseInt(parsedInput[2]);
+    }
 
     public Person(String firstName, String lastName, int age) {
         this.firstName = firstName;
