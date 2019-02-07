@@ -55,12 +55,17 @@ public class BaseParameterizedTest {
         );
     }
 
+    @ParameterizedTest(name="CSV parameter test")
+    @CsvSource( value = {"A, B", "C, D", "E, F", "G, H", "A, 'B, C, D'"})
+    void testNamesCsv(String firstName, String lastName) {
+        assertTrue(!firstName.isBlank());
+        assertTrue(!lastName.isBlank());
+    }
 
-//  Highle experimental feature :)
-//    @ParameterizedTest(name="CSV parameter test")
-//    @CsvSource( value = {"A", "B", "C", "D", "E", "F", "G", "H"})
-//    void testNamesCsv(String firstName, String lastName) {
-//        assertTrue(!firstName.isBlank());
-//        assertTrue(!lastName.isBlank());
-//    }
+    @ParameterizedTest(name="CSV file parameter test")
+    @CsvFileSource(resources =  { "/test-input-1"})
+    void testFileNamesCsv(String firstName, String lastName) {
+        assertTrue(!firstName.isBlank());
+        assertTrue(!lastName.isBlank());
+    }
 }
