@@ -30,7 +30,7 @@ public class SimpleDynamicTest {
         return Arrays.asList(1, 2, 3, 4, 5);
     }
 
-    private boolean isOdd(Integer testedNumber) {
+    public static boolean isOdd(Integer testedNumber) {
         return (testedNumber%2) == 0;
     }
 
