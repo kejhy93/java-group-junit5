@@ -22,12 +22,14 @@ public class TempFile implements BeforeEachCallback, AfterEachCallback {
 
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
+        System.out.println("[AfterEach] TempFile");
         Files.delete(tempFile);
         System.out.println("File " + tempFile.toString() + " was deleted");
     }
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
+        System.out.println("[BeforeEach] TempFile");
         tempFile = Files.createTempFile(rootPath, "temp-file", "-test.txt");
         System.out.println("File " + tempFile.toString() + " was created");
     }
