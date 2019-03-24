@@ -31,12 +31,17 @@ dependencies {
 
     compile("org.junit.jupiter:junit-jupiter-api:${junit5Version}")
 
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+
+
     testCompile("org.junit.jupiter:junit-jupiter-migrationsupport:${junit5Version}")
     testCompile("org.junit.jupiter:junit-jupiter-params:${junit5Version}")
 
     testCompile("org.junit.platform:junit-platform-runner:${junit5PlatformVersion}")
     testCompile("org.junit.platform:junit-platform-console-standalone:${junit5PlatformVersion}")
     testCompile("org.junit.platform:junit-platform-launcher:${junit5PlatformVersion}")
+    testCompile("org.junit.platform:junit-platform-commons:${junit5PlatformVersion}")
 
     testRuntime("org.junit.jupiter:junit-jupiter-engine:${junit5Version}")
     testRuntime("org.junit.vintage:junit-vintage-engine:${junit5Version}")
