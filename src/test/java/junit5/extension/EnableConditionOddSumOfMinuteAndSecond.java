@@ -9,14 +9,15 @@ import java.time.LocalTime;
 public class EnableConditionOddSumOfMinuteAndSecond implements ExecutionCondition {
     @Override
     public ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext context) {
+        System.out.println("Evaluate ExecutionCondition for test " + context.getDisplayName());
         LocalTime currentTime = LocalTime.now();
 
         int sum = currentTime.getMinute() + currentTime.getSecond();
 
-        if ( (sum%2) == 0 ) {
-            return ConditionEvaluationResult.enabled("Sum " + sum + " is odd ");
+        if ( (sum%10) == 0 ) {
+            return ConditionEvaluationResult.disabled("Sum " + sum + " is odd ");
         } else {
-            return ConditionEvaluationResult.disabled("Sum " + sum + " is NOT odd ");
+            return ConditionEvaluationResult.enabled("Sum " + sum + " is NOT odd ");
         }
     }
 }
