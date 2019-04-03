@@ -41,11 +41,11 @@ public class BaseParameterizedTest {
         assertTrue ( BigInteger.valueOf(number).isProbablePrime(1), "Number " + number + " is prime number");
     }
 
-
     static Collection<Integer> generatePrimeNumbers() {
         return List.of(3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37);
     }
 
+    /** Method Source with nice display name */
     @ParameterizedTest(name="Name test first name is \"{0}\", last name is \"{1}\"")
     @MethodSource("generateNames")
     void testNamesMethodSource(String firstName, String lastName) {
@@ -75,6 +75,7 @@ public class BaseParameterizedTest {
         assertTrue(!lastName.isBlank());
     }
 
+    /** General source of data */
     @ParameterizedTest
     @ArgumentsSource(CustomArgumentSource.class)
     void testCustomArgumentSource( Person person) {
@@ -83,13 +84,23 @@ public class BaseParameterizedTest {
         assertTrue( 0 <= person.getAge() && person.getAge() <= 100);
     }
 
+    /** ------------------------------------ */
+    /** ------ CONVERSION ------------------ */
+    /** ------------------------------------ */
+
     @ParameterizedTest
     @ValueSource(strings = { "true" })
     void testImplicitArgumentConversion( boolean param ) {
         assertTrue(param);
     }
 
-
+    /** Automatic conversion in case factory method or factory constructor */
+    /** factory method is non-private, static method declared in class that accepts a single
+     * String */
+    /** factory constructor is non-private constructor declared in class that accepts a single
+     * String */
+    /** if more factory methods found they will be ignored */
+    /** if factory method and factory constructor are found, factory method is used */
     @ParameterizedTest
     @ValueSource(strings = { "ABCDE FGHIJKL 10", "12345 6789012 5" })
     void testAnotherImplicitArgumentConversion( Person person ) {
@@ -98,6 +109,7 @@ public class BaseParameterizedTest {
         assertTrue ( 0 <= person.getAge() && person.getAge() <= 100);
     }
 
+    /** Explicit conversion */
     @ParameterizedTest
     @ValueSource(strings = { "ABCDE FGHIJKL 10", "12345 6789012 5" })
     void testExplicitFromStringArgumentConversion( @ConvertWith(ToPersonArgumentConvertor.class) Person person ) {
@@ -106,6 +118,7 @@ public class BaseParameterizedTest {
         assertTrue ( 0 <= person.getAge() && person.getAge() <= 100);
     }
 
+    /** Argument aggregation */
     @ParameterizedTest
     @CsvSource({
             "ABCDE, FGHIJKL, 10", "12345, 6789012, 5"
@@ -120,6 +133,8 @@ public class BaseParameterizedTest {
         assertTrue ( 0 <= person.getAge() && person.getAge() <= 100);
     }
 
+
+    /** Nicer argument aggregation */
     @ParameterizedTest
     @CsvSource({
             "ABCDE, FGHIJKL, 10", "12345, 6789012, 5"
@@ -130,6 +145,8 @@ public class BaseParameterizedTest {
         assertTrue ( 0 <= person.getAge() && person.getAge() <= 100);
     }
 
+
+    /** Nicer argument aggregation with annotation */
     @ParameterizedTest
     @CsvSource({
             "ABCDE, FGHIJKL, 10", "12345, 6789012, 5"
