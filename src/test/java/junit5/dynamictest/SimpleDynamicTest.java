@@ -27,7 +27,7 @@ public class SimpleDynamicTest {
     }
 
     private List<Integer> createTestData(int counter) {
-        return Arrays.asList(1, 2, 3, 4, 5);
+        return Arrays.asList(0, 2, 6, 4, 10);
     }
 
     public static boolean isOdd(Integer testedNumber) {
