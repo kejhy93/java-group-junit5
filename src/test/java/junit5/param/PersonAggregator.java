@@ -9,6 +9,8 @@ import org.junit.jupiter.params.aggregator.ArgumentsAggregator;
 public class PersonAggregator implements ArgumentsAggregator {
     @Override
     public Person aggregateArguments(ArgumentsAccessor accessor, ParameterContext context) throws ArgumentsAggregationException {
-        return new Person(accessor.getString(0), accessor.getString(1), accessor.getInteger(2));
+        return new Person(accessor.getString(0),
+                accessor.getString(1),
+                accessor.getInteger(2));
     }
 }
