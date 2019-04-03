@@ -2,18 +2,19 @@ package junit5.extension;
 
 import junit5.extension.parameter.ParameterResolverExtension;
 import junit5.extension.parameter.RandomParam;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 @TestClassTimeLogging
+/** Declarative extension*/
 @ExtendWith({ExceptionHandlingExtension.class, TimeLoggingTestMethod.class})
 @ExtendWith({EnableConditionOddSumOfMinuteAndSecond.class})
 public class TestClassWithCustomExtension {
 
+    /** Programmatic extension*/
     @RegisterExtension
     static TempFolder tempFolder = new TempFolder("junit-test-folder-");
 
@@ -42,6 +43,7 @@ public class TestClassWithCustomExtension {
         System.out.println("Second test, name of file " + tempFile.getFile().toString());
     }
 
+    /** Extension for exception handling */
     @Test
     void thirdTestThrowingException() {
         try {
@@ -55,9 +57,12 @@ public class TestClassWithCustomExtension {
         throw new NullPointerException();
     }
 
+
+    /** Extension for method */
     @Test
     @ExtendWith(ParameterResolverExtension.class)
     public void testParamTest(@RandomParam String value) {
+        System.out.println("Received parameter=\"" + value + "\"");
         Assertions.assertTrue(value.startsWith("Result"));
         Assertions.assertTrue(value.endsWith("."));
     }
