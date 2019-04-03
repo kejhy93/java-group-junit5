@@ -9,11 +9,11 @@ import java.nio.file.Path;
 
 public class TempFile implements BeforeEachCallback, AfterEachCallback {
 
-    private Path rootPath;
+    private TempFolder root;
     private Path tempFile;
 
     public TempFile(TempFolder folder) {
-        rootPath = folder.getRoot();
+        root = folder;
     }
 
     public Path getFile() {
@@ -30,7 +30,7 @@ public class TempFile implements BeforeEachCallback, AfterEachCallback {
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         System.out.println("[BeforeEach] TempFile");
-        tempFile = Files.createTempFile(rootPath, "temp-file", "-test.txt");
+        tempFile = Files.createTempFile(root.getRoot(), "temp-file", "-test.txt");
         System.out.println("File " + tempFile.toString() + " was created");
     }
 }
